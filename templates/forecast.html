@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}SmartRetail AI - Machine Learning Sales Forecasting{% endblock %}
+{% block page_title %}Machine Learning Sales Forecasting{% endblock %}
+{% block breadcrumb %}Forecasting{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- FORECAST CONFIGURATION PANEL -->
+    <div class="dashboard-panel mb-4 p-3">
+        <div class="row g-3 align-items-center">
+            <div class="col-lg-3 col-md-6">
+                <label for="forecastModel" class="form-label text-secondary small mb-1 fw-semibold">
+                    <i class="bi bi-cpu-fill text-teal-light me-1"></i> Regression Model
+                </label>
+                <select class="form-select form-select-sm bg-dark text-white border-secondary" id="forecastModel">
+                    <option value="linear_regression" selected>Linear Regression (Best Performer - R²: 0.5734)</option>
+                    <option value="random_forest">Random Forest Regression (R²: 0.5271)</option>
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label for="forecastHorizon" class="form-label text-secondary small mb-1 fw-semibold">
+                    <i class="bi bi-calendar-range text-teal-light me-1"></i> Forecast Horizon
+                </label>
+                <select class="form-select form-select-sm bg-dark text-white border-secondary" id="forecastHorizon">
+                    <option value="3">3 Months (Quarterly Projection)</option>
+                    <option value="6">6 Months (Mid-Year Projection)</option>
+                    <option value="12" selected>12 Months (Full Fiscal Year 2018)</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-8 d-flex align-items-end gap-2">
+                <button class="btn btn-sm btn-teal d-inline-flex align-items-center gap-2" id="runForecastBtn">
+                    <i class="bi bi-stars"></i> Compute Forecast Projections
+                </button>
+                <a href="#" class="btn btn-sm btn-outline-secondary text-white d-inline-flex align-items-center gap-1" id="downloadForecastCsvBtn">
+                    <i class="bi bi-file-earmark-arrow-down"></i> Export CSV
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 text-lg-end">
+                <span class="badge bg-teal-subtle text-teal border border-teal p-2">
+                    <i class="bi bi-shield-check me-1"></i> No Leakage &bull; Joblib Loaded
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODEL EVALUATION BENCHMARK CARDS -->
+    <div class="dashboard-panel mb-4">
+        <div class="panel-header">
+            <h5 class="panel-title">
+                <i class="bi bi-bar-chart-steps text-teal-light"></i> Model Performance Benchmarks (Chronological 2017 Test Set)
+            </h5>
+            <span class="badge bg-teal">Academic Rigor</span>
+        </div>
+        <p class="text-secondary small mb-3">
+            Models were evaluated using chronological out-of-time validation (Train: 2014&ndash;2016, 36 months; Test: 2017, 12 months) to strictly prevent future data leakage.
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-striped table-hover align-middle small mb-0" id="modelMetricsTable">
+                <thead>
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>MAE ($)</th>
+                        <th>RMSE ($)</th>
+                        <th>R² Score</th>
+                        <th>Architecture Characteristics</th>
+                        <th>Evaluation Status</th>
+                    </tr>
+                </thead>
+                <tbody id="metricsTableBody">
+                    <tr>
+                        <td><strong>Linear Regression</strong></td>
+                        <td>$12,180.97</td>
+                        <td>$16,833.86</td>
+                        <td><strong class="text-success">0.5734</strong></td>
+                        <td>Captures secular growth trend and monthly seasonal surges</td>
+                        <td><span class="badge bg-success"><i class="bi bi-trophy-fill me-1"></i> Best Performing Model</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Random Forest Regression</strong></td>
+                        <td>$14,174.73</td>
+                        <td>$17,723.94</td>
+                        <td><span class="text-warning">0.5271</span></td>
+                        <td>Ensemble of 100 trees; bounded by training peak ($96,999 in Dec 2016)</td>
+                        <td><span class="badge bg-secondary">Baseline Model</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Improved LR (Lags + Rolling)</strong></td>
+                        <td>$14,373.80</td>
+                        <td>$17,671.21</td>
+                        <td>0.5299</td>
+                        <td>Autoregressive features (Lag_1, Lag_2, Lag_12, Rolling_3)</td>
+                        <td><span class="badge bg-secondary">Experimental</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- FORECAST SUMMARY KPI CARDS (4 METRICS) -->
+    <div class="row g-3 mb-4" id="forecastKpiRow">
+        <div class="col-xl-3 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-teal"><i class="bi bi-cash-stack"></i></div>
+                <div class="kpi-title">TOTAL PROJECTED SALES</div>
+                <div class="kpi-value" id="kpiForecastTotal">$0.00</div>
+                <div class="kpi-subtext text-secondary" id="kpiForecastHorizonText">12-Month Horizon</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-blue"><i class="bi bi-calculator-fill"></i></div>
+                <div class="kpi-title">AVERAGE MONTHLY RUN-RATE</div>
+                <div class="kpi-value" id="kpiForecastAvg">$0.00</div>
+                <div class="kpi-subtext text-secondary">Expected Monthly Baseline</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-green"><i class="bi bi-graph-up-arrow"></i></div>
+                <div class="kpi-title">PEAK SALES MONTH</div>
+                <div class="kpi-value text-success" id="kpiForecastPeak">$0.00</div>
+                <div class="kpi-subtext text-secondary" id="kpiForecastPeakMonth">-</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-amber"><i class="bi bi-graph-down-arrow"></i></div>
+                <div class="kpi-title">TROUGH SALES MONTH</div>
+                <div class="kpi-value text-warning" id="kpiForecastTrough">$0.00</div>
+                <div class="kpi-subtext text-secondary" id="kpiForecastTroughMonth">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORECAST CHARTS -->
+    <div class="row g-4 mb-4">
+        <!-- Future Projections Chart -->
+        <div class="col-lg-7">
+            <div class="dashboard-panel h-100">
+                <div class="panel-header">
+                    <h5 class="panel-title">
+                        <i class="bi bi-graph-up text-teal-light"></i> Future Projected Sales Curve
+                    </h5>
+                    <span class="badge bg-teal" id="chartModelBadge">Linear Regression</span>
+                </div>
+                <div class="chart-container" style="height: 320px;">
+                    <canvas id="futureForecastChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical Actual vs Predicted Validation Overlay -->
+        <div class="col-lg-5">
+            <div class="dashboard-panel h-100">
+                <div class="panel-header">
+                    <h5 class="panel-title">
+                        <i class="bi bi-bullseye text-teal-light"></i> 2017 Test Set: Actual vs. Predicted
+                    </h5>
+                    <span class="badge bg-dark-subtle text-secondary border border-secondary">Validation Fit</span>
+                </div>
+                <div class="chart-container" style="height: 320px;">
+                    <canvas id="actualVsPredictedChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRANULAR FORECAST PROJECTIONS TABLE -->
+    <div class="dashboard-panel mb-4">
+        <div class="panel-header">
+            <h5 class="panel-title">
+                <i class="bi bi-calendar3-range text-teal-light"></i> Granular Monthly Forecast Breakdown
+            </h5>
+            <span class="badge bg-teal" id="tableHorizonBadge">12 Periods</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped table-hover align-middle small mb-0" id="forecastDetailTable">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Month Name</th>
+                        <th>Year</th>
+                        <th>Predicted Sales ($)</th>
+                        <th>Expected Share of Horizon</th>
+                        <th>Strategic Planning Phase</th>
+                    </tr>
+                </thead>
+                <tbody id="forecastTableBody">
+                    <tr><td colspan="6" class="text-center text-secondary py-3">Click "Compute Forecast Projections" to calculate values...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/forecast.js') }}"></script>
+{% endblock %}
+

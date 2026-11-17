@@ -1,0 +1,4 @@
+Order Date,Sales,Profit,Quantity,Discount,Category,Sub-Category,Region
+2016-01-15,250.00,45.00,2,0.1,Technology,Phones,West
+2016-02-20,120.00,-15.00,1,0.4,Furniture,Chairs,East
+2016-03-10,50.00,12.50,5,0.0,Office Supplies,Paper,Central

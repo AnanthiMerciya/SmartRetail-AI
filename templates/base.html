@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SmartRetail AI - Intelligent Business Analytics &amp; Forecasting{% endblock %}</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5.3 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Chart.js 4.4 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <!-- Custom Application CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-body-dark">
+
+    <div class="app-layout">
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="app-sidebar" id="appSidebar">
+            <div class="sidebar-header">
+                <a href="/" class="brand-logo text-decoration-none">
+                    <div class="brand-icon">
+                        <i class="bi bi-cpu-fill"></i>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-title">SmartRetail <span class="brand-accent">AI</span></span>
+                        <span class="brand-subtitle">Business Intelligence</span>
+                    </div>
+                </a>
+                <button class="btn btn-sm btn-link text-white d-lg-none" id="sidebarCloseBtn">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-nav-container">
+                <div class="nav-section-title">MAIN NAVIGATION</div>
+                <ul class="nav flex-column sidebar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">
+                            <i class="bi bi-house-door"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/dashboard' %}active{% endif %}" href="/dashboard">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/upload' %}active{% endif %}" href="/upload">
+                            <i class="bi bi-cloud-arrow-up"></i>
+                            <span>Dataset Upload &amp; Clean</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/analysis' %}active{% endif %}" href="/analysis">
+                            <i class="bi bi-graph-up-arrow"></i>
+                            <span>Deep Sales Analysis</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-section-title mt-3">INTELLIGENCE &amp; AI</div>
+                <ul class="nav flex-column sidebar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/forecast' %}active{% endif %}" href="/forecast">
+                            <i class="bi bi-stars"></i>
+                            <span>ML Sales Forecasting</span>
+                            <span class="badge bg-teal ms-auto">AI</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/recommendations' %}active{% endif %}" href="/recommendations">
+                            <i class="bi bi-lightbulb"></i>
+                            <span>AI Recommendations</span>
+                            <span class="badge bg-amber ms-auto">Rules</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/reports' %}active{% endif %}" href="/reports">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                            <span>Reports &amp; Exports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/about' %}active{% endif %}" href="/about">
+                            <i class="bi bi-info-circle"></i>
+                            <span>About Project</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Student Profile Badge -->
+            <div class="sidebar-footer">
+                <div class="user-profile-badge">
+                    <div class="avatar-circle">
+                        <span>AM</span>
+                    </div>
+                    <div class="profile-info">
+                        <span class="profile-name">Ananthi Merciya M</span>
+                        <span class="profile-role">Reg: ASML24005 • Final Year</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN WRAPPER -->
+        <div class="app-main">
+            <!-- TOP NAVBAR -->
+            <header class="app-topbar">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-light d-lg-none btn-icon" id="sidebarToggleBtn">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div class="topbar-title-group">
+                        <h1 class="page-main-title">{% block page_title %}Dashboard{% endblock %}</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted-teal">SmartRetail AI</a></li>
+                                <li class="breadcrumb-item active text-slate" aria-current="page">{% block breadcrumb %}Overview{% endblock %}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="topbar-actions d-flex align-items-center gap-3">
+                    <div class="dataset-status-pill d-none d-md-flex">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">Superstore.csv <span class="badge bg-slate ms-1">9,994 Rows</span></span>
+                    </div>
+                    <a href="/reports" class="btn btn-sm btn-outline-teal d-none d-sm-inline-flex align-items-center gap-2">
+                        <i class="bi bi-file-earmark-arrow-down"></i>
+                        <span>Export Report</span>
+                    </a>
+                    <a href="/forecast" class="btn btn-sm btn-teal d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                        <span>Generate Forecast</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- PAGE CONTENT -->
+            <main class="app-content">
+                {% block content %}{% endblock %}
+            </main>
+
+            <!-- FOOTER -->
+            <footer class="app-footer">
+                <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted-slate small">
+                    <div>
+                        <strong>SmartRetail AI</strong> &copy; 2026. Capstone Project: Intelligent Retail Business Analytics &amp; Sales Forecasting.
+                    </div>
+                    <div>
+                        Author: <strong>Ananthi Merciya M</strong> (ASML24005) • Built with Flask, Pandas, Scikit-learn &amp; Chart.js
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage">Action completed successfully.</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar Mobile Toggle
+        const sidebar = document.getElementById('appSidebar');
+        const toggleBtn = document.getElementById('sidebarToggleBtn');
+        const closeBtn = document.getElementById('sidebarCloseBtn');
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+            });
+        }
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                sidebar.classList.remove('show');
+            });
+        }
+
+        // Global Toast Notification Helper
+        window.showToast = function(message, type = 'success') {
+            const toastEl = document.getElementById('liveToast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastEl.className = `toast align-items-center text-white border-0 bg-${type === 'error' ? 'danger' : (type === 'warning' ? 'warning text-dark' : 'success')}`;
+            toastMsg.textContent = message;
+            const toast = new bootstrap.Toast(toastEl, { delay: 4000 });
+            toast.show();
+        };
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+

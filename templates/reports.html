@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}SmartRetail AI - Reports &amp; Exports Center{% endblock %}
+{% block page_title %}Executive Reports &amp; Data Exports{% endblock %}
+{% block breadcrumb %}Reports{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- OVERVIEW BANNER -->
+    <div class="dashboard-panel mb-4 p-4 border-start border-4 border-teal">
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-teal"><i class="bi bi-file-earmark-arrow-down-fill me-1"></i> Multi-Format Reporting Suite</span>
+            <span class="text-secondary small">&bull; Automated ReportLab &amp; OpenXML Integration</span>
+        </div>
+        <h4 class="text-white fw-bold mb-2">Enterprise Report Generation &amp; Academic Documentation</h4>
+        <p class="text-secondary small mb-0">
+            Export comprehensive analytical reports, raw statistical summaries, machine learning forecasts, and the formal project documentation. Reports are compiled dynamically using verified dataset values and serialized model predictions.
+        </p>
+    </div>
+
+    <!-- 4 REPORT CARDS -->
+    <div class="row g-4 mb-4">
+
+        <!-- 1. Executive PDF Report -->
+        <div class="col-lg-6 col-xl-3">
+            <div class="dashboard-panel h-100 d-flex flex-column justify-content-between p-4 border-top border-4 border-danger">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-danger-subtle text-danger border border-danger">PDF Document</span>
+                        <i class="bi bi-filetype-pdf text-danger fs-3"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Executive Analytics Report</h5>
+                    <p class="text-secondary small mb-3">
+                        Multi-page formal report containing Executive Summary, KPIs, 4-year trends, category margins, ML model benchmarks, discount sensitivity, and 6 strategic business recommendations.
+                    </p>
+                    <ul class="text-secondary small ps-3 mb-4">
+                        <li>High-resolution layout via ReportLab</li>
+                        <li>Dynamic KPI &amp; model benchmark tables</li>
+                        <li>Automated decision directives</li>
+                    </ul>
+                </div>
+                <div class="d-grid">
+                    <button class="btn btn-danger btn-sm d-flex align-items-center justify-content-center gap-2" id="generatePdfBtn">
+                        <i class="bi bi-download"></i>
+                        <span>Generate &amp; Download PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Project Word Documentation (.docx) -->
+        <div class="col-lg-6 col-xl-3">
+            <div class="dashboard-panel h-100 d-flex flex-column justify-content-between p-4 border-top border-4 border-primary">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-primary-subtle text-primary border border-primary">Word Document</span>
+                        <i class="bi bi-filetype-docx text-primary fs-3"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Academic Project Docx</h5>
+                    <p class="text-secondary small mb-3">
+                        Complete Capstone Project Documentation (ECMA-376 OpenXML format) for B.Sc. AIML. Contains full system architecture, algorithms, equations, and evaluation tables.
+                    </p>
+                    <ul class="text-secondary small ps-3 mb-4">
+                        <li>Author: Ananthi Merciya M (ASML24005)</li>
+                        <li>Verified 9,994-row benchmark statistics</li>
+                        <li>Linear Regression vs Random Forest</li>
+                    </ul>
+                </div>
+                <div class="d-grid">
+                    <a href="/download/project-doc" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center gap-2">
+                        <i class="bi bi-file-earmark-word"></i>
+                        <span>Download Project DOCX</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Monthly Financial Rollup CSV -->
+        <div class="col-lg-6 col-xl-3">
+            <div class="dashboard-panel h-100 d-flex flex-column justify-content-between p-4 border-top border-4 border-success">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-success-subtle text-success border border-success">Spreadsheet CSV</span>
+                        <i class="bi bi-filetype-csv text-success fs-3"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Monthly Financial Summary</h5>
+                    <p class="text-secondary small mb-3">
+                        Historical aggregate monthly sales, net operating profit, profit margin percentages, and units dispatched across all 48 operating periods (2014&ndash;2017).
+                    </p>
+                    <ul class="text-secondary small ps-3 mb-4">
+                        <li>Compatible with Excel &amp; Power BI</li>
+                        <li>Includes profit margin calculations</li>
+                        <li>Complete 48 monthly periods</li>
+                    </ul>
+                </div>
+                <div class="d-grid">
+                    <button class="btn btn-success btn-sm d-flex align-items-center justify-content-center gap-2" id="generateCsvBtn">
+                        <i class="bi bi-file-earmark-spreadsheet"></i>
+                        <span>Download Summary CSV</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. ML Forecast Horizon CSV -->
+        <div class="col-lg-6 col-xl-3">
+            <div class="dashboard-panel h-100 d-flex flex-column justify-content-between p-4 border-top border-4 border-teal">
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-teal-subtle text-teal border border-teal">ML Forecast Data</span>
+                        <i class="bi bi-stars text-teal fs-3"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Forecast Horizon CSV</h5>
+                    <p class="text-secondary small mb-3">
+                        Projected monthly sales revenue produced by the Linear Regression model for the next 12 months (2018), including holiday seasonal run-rates and growth indices.
+                    </p>
+                    <ul class="text-secondary small ps-3 mb-4">
+                        <li>Model: Linear Regression (R²: 0.5734)</li>
+                        <li>12-Month horizon (Jan&ndash;Dec 2018)</li>
+                        <li>Projected Annual Total: $708,765</li>
+                    </ul>
+                </div>
+                <div class="d-grid">
+                    <a href="/download/forecast-csv?model=linear_regression&horizon=12" class="btn btn-teal btn-sm d-flex align-items-center justify-content-center gap-2">
+                        <i class="bi bi-cloud-download"></i>
+                        <span>Download 12M Forecast CSV</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- REPORT GENERATION SPECIFICATIONS -->
+    <div class="dashboard-panel mb-4">
+        <div class="panel-header">
+            <h5 class="panel-title">
+                <i class="bi bi-info-circle text-teal-light"></i> Report Contents &amp; Compliance Specifications
+            </h5>
+            <span class="badge bg-teal">Academic Rigor</span>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <h6 class="text-white fw-bold mb-2"><i class="bi bi-check-circle-fill text-success me-1"></i> Data Authenticity Guarantee</h6>
+                <p class="text-secondary small">
+                    All exported charts, tables, and summary figures are computed directly from the underlying retail transactions. No artificial values or ungrounded mockups are emitted.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h6 class="text-white fw-bold mb-2"><i class="bi bi-check-circle-fill text-success me-1"></i> Time-Series Integrity</h6>
+                <p class="text-secondary small">
+                    Machine learning evaluations maintain strict chronological separation between the 2014&ndash;2016 training corpus (36 periods) and the 2017 out-of-time test corpus (12 periods).
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h6 class="text-white fw-bold mb-2"><i class="bi bi-check-circle-fill text-success me-1"></i> Prescriptive Recommendations</h6>
+                <p class="text-secondary small">
+                    Business action directives are strictly derived from empirical data anomalies, including the 20% discount profit threshold and product hardware loss leaders.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const pdfBtn = document.getElementById('generatePdfBtn');
+    const csvBtn = document.getElementById('generateCsvBtn');
+
+    if (pdfBtn) {
+        pdfBtn.addEventListener('click', function () {
+            pdfBtn.disabled = true;
+            pdfBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Compiling PDF...';
+
+            fetch('/api/export-report', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: 'pdf' })
+            })
+            .then(res => res.json())
+            .then(data => {
+                pdfBtn.disabled = false;
+                pdfBtn.innerHTML = '<i class="bi bi-download"></i> <span>Generate &amp; Download PDF</span>';
+
+                if (!data.success) throw new Error(data.error || 'PDF compilation failed');
+                if (window.showToast) window.showToast('PDF compiled successfully! Initiating download...', 'success');
+                window.location.href = data.download_url;
+            })
+            .catch(err => {
+                pdfBtn.disabled = false;
+                pdfBtn.innerHTML = '<i class="bi bi-download"></i> <span>Generate &amp; Download PDF</span>';
+                console.error('PDF export error:', err);
+                if (window.showToast) window.showToast('Export Error: ' + err.message, 'error');
+            });
+        });
+    }
+
+    if (csvBtn) {
+        csvBtn.addEventListener('click', function () {
+            csvBtn.disabled = true;
+            csvBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Exporting CSV...';
+
+            fetch('/api/export-report', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: 'csv' })
+            })
+            .then(res => res.json())
+            .then(data => {
+                csvBtn.disabled = false;
+                csvBtn.innerHTML = '<i class="bi bi-file-earmark-spreadsheet"></i> <span>Download Summary CSV</span>';
+
+                if (!data.success) throw new Error(data.error || 'CSV compilation failed');
+                if (window.showToast) window.showToast('CSV generated! Initiating download...', 'success');
+                window.location.href = data.download_url;
+            })
+            .catch(err => {
+                csvBtn.disabled = false;
+                csvBtn.innerHTML = '<i class="bi bi-file-earmark-spreadsheet"></i> <span>Download Summary CSV</span>';
+                console.error('CSV export error:', err);
+                if (window.showToast) window.showToast('Export Error: ' + err.message, 'error');
+            });
+        });
+    }
+});
+</script>
+{% endblock %}
+

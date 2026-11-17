@@ -1,0 +1,757 @@
+{% extends "base.html" %}
+
+{% block title %}SmartRetail AI - 10-Dimensional Deep Sales &amp; Profit Analysis{% endblock %}
+{% block page_title %}Deep Diagnostic Sales Analysis{% endblock %}
+{% block breadcrumb %}Sales Analysis{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- ANALYSIS NAVIGATION TABS -->
+    <div class="dashboard-panel mb-4 p-2">
+        <ul class="nav nav-pills nav-fill" id="analysisTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-temporal-btn" data-bs-toggle="pill" data-bs-target="#tab-temporal" type="button" role="tab">
+                    <i class="bi bi-calendar3 me-1"></i> 1. Yearly &amp; Monthly Trends
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-category-btn" data-bs-toggle="pill" data-bs-target="#tab-category" type="button" role="tab">
+                    <i class="bi bi-tag-fill me-1"></i> 2. Category &amp; Sub-Category
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-geo-btn" data-bs-toggle="pill" data-bs-target="#tab-geo" type="button" role="tab">
+                    <i class="bi bi-geo-alt-fill me-1"></i> 3. Region &amp; State Economics
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-product-btn" data-bs-toggle="pill" data-bs-target="#tab-product" type="button" role="tab">
+                    <i class="bi bi-box-seam me-1"></i> 4. Products &amp; Loss Leaders
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-discount-btn" data-bs-toggle="pill" data-bs-target="#tab-discount" type="button" role="tab">
+                    <i class="bi bi-percent me-1"></i> 5. Discount Impact Curve
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-customer-btn" data-bs-toggle="pill" data-bs-target="#tab-customer" type="button" role="tab">
+                    <i class="bi bi-people-fill me-1"></i> 6. Customer &amp; Segment
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- TAB CONTENT WRAPPER -->
+    <div class="tab-content" id="analysisTabContent">
+
+        <!-- TAB 1: TEMPORAL TRENDS -->
+        <div class="tab-pane fade show active" id="tab-temporal" role="tabpanel">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-6">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title"><i class="bi bi-table text-teal-light"></i> Annual Performance Matrix</h5>
+                            <span class="badge bg-teal">4 Years</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped table-hover align-middle small" id="yearlyTable">
+                                <thead>
+                                    <tr>
+                                        <th>Year</th>
+                                        <th>Sales Revenue</th>
+                                        <th>Net Profit</th>
+                                        <th>Margin</th>
+                                        <th>Quantity</th>
+                                        <th>Unique Orders</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="6" class="text-center text-secondary py-3"><span class="spinner-border spinner-border-sm me-2"></span>Loading data...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title"><i class="bi bi-bar-chart text-teal-light"></i> Monthly Seasonality Aggregation</h5>
+                            <span class="badge bg-dark-subtle text-secondary border border-secondary">Calendar Months</span>
+                        </div>
+                        <div class="chart-container" style="height: 280px;">
+                            <canvas id="monthlySeasonalityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: CATEGORY & SUBCATEGORY -->
+        <div class="tab-pane fade" id="tab-category" role="tabpanel">
+            <div class="row g-4 mb-4" id="categoryCardsContainer">
+                <!-- 3 Category Summary Cards injected dynamically -->
+            </div>
+            <div class="dashboard-panel mb-4">
+                <div class="panel-header">
+                    <h5 class="panel-title"><i class="bi bi-diagram-3-fill text-teal-light"></i> Sub-Category Financial Breakdown (17 Sub-Categories)</h5>
+                    <span class="badge bg-teal">Detailed Audit</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover align-middle small" id="subcategoryTable">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Sub-Category</th>
+                                <th>Total Sales</th>
+                                <th>Net Profit</th>
+                                <th>Profit Margin (%)</th>
+                                <th>Quantity Sold</th>
+                                <th>Avg Discount</th>
+                                <th>Health Status</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td colspan="8" class="text-center text-secondary py-3">Loading sub-categories...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: REGIONAL & STATE ECONOMICS -->
+        <div class="tab-pane fade" id="tab-geo" role="tabpanel">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-5">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title"><i class="bi bi-compass-fill text-teal-light"></i> Regional Territory Economics</h5>
+                            <span class="badge bg-teal">4 Regions</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped table-hover align-middle small" id="regionTable">
+                                <thead>
+                                    <tr>
+                                        <th>Region</th>
+                                        <th>Sales</th>
+                                        <th>Profit</th>
+                                        <th>Margin</th>
+                                        <th>Units</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="5" class="text-center text-secondary py-3">Loading regions...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title"><i class="bi bi-bar-chart-line text-teal-light"></i> Regional Sales vs Profit</h5>
+                            <span class="badge bg-dark-subtle text-secondary border border-secondary">Comparison</span>
+                        </div>
+                        <div class="chart-container" style="height: 260px;">
+                            <canvas id="analysisRegionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATES: TOP 10 VS BOTTOM 10 -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-6">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title text-success"><i class="bi bi-trophy-fill me-1"></i> Top 10 Most Profitable States</h5>
+                            <span class="badge bg-success">Profit Engines</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped table-hover align-middle small" id="topStatesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>State</th>
+                                        <th>Sales Revenue</th>
+                                        <th>Net Profit</th>
+                                        <th>Margin</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="5" class="text-center text-secondary py-3">Loading states...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title text-danger"><i class="bi bi-exclamation-octagon-fill me-1"></i> Top 10 Loss-Making States</h5>
+                            <span class="badge bg-danger">Severe Deficits</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped table-hover align-middle small" id="bottomStatesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>State</th>
+                                        <th>Sales Revenue</th>
+                                        <th>Net Profit</th>
+                                        <th>Margin</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="5" class="text-center text-secondary py-3">Loading states...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: PRODUCTS & LOSS LEADERS -->
+        <div class="tab-pane fade" id="tab-product" role="tabpanel">
+            <!-- CRITICAL CALLOUT: LOSS LEADING PRODUCTS -->
+            <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+                <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-3 fs-3 text-danger"></i>
+                <div>
+                    <strong>Critical Margin Deficit Detected:</strong>
+                    The bottom 10 loss-making products have drained tens of thousands in company profits due to unchecked discounts exceeding 50%. Immediate pricing and discounting intervention is required.
+                </div>
+            </div>
+
+            <div class="dashboard-panel mb-4">
+                <div class="panel-header">
+                    <h5 class="panel-title text-danger"><i class="bi bi-arrow-down-circle-fill me-1"></i> Top 10 Critical Loss-Making Products (Margin Drainers)</h5>
+                    <span class="badge bg-danger">Action Required</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover align-middle small" id="bottomLossProductsTable">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Gross Sales</th>
+                                <th>Net Loss ($)</th>
+                                <th>Margin (%)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td colspan="7" class="text-center text-secondary py-3">Loading loss leaders...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-lg-6">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title text-teal-light"><i class="bi bi-cash-stack me-1"></i> Top 10 Revenue Generators</h5>
+                            <span class="badge bg-teal">Top Sales</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped table-hover align-middle small" id="topProductsSalesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Sales</th>
+                                        <th>Profit</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="4" class="text-center text-secondary py-3">Loading top sales...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title text-success"><i class="bi bi-stars me-1"></i> Top 10 Profit Driving Products</h5>
+                            <span class="badge bg-success">Top Profit</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped table-hover align-middle small" id="topProductsProfitTable">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Sales</th>
+                                        <th>Profit</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="4" class="text-center text-secondary py-3">Loading top profit...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: DISCOUNT IMPACT CURVE -->
+        <div class="tab-pane fade" id="tab-discount" role="tabpanel">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-7">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title text-danger"><i class="bi bi-graph-down-arrow me-1"></i> Profit Cannibalization by Discount Depth</h5>
+                            <span class="badge bg-danger">Critical Elasticity</span>
+                        </div>
+                        <div class="chart-container" style="height: 320px;">
+                            <canvas id="analysisDiscountChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="dashboard-panel h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="panel-header">
+                                <h5 class="panel-title"><i class="bi bi-shield-slash-fill text-warning"></i> Key Rule of Thumb</h5>
+                                <span class="badge bg-warning text-dark">Data Law</span>
+                            </div>
+                            <div class="p-3 rounded mb-3" style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981;">
+                                <strong class="text-success d-block mb-1">0% &ndash; 20% Discount Range</strong>
+                                <p class="small text-secondary mb-0">Generates <strong>+$421,773.08</strong> in aggregate positive profit. Customer conversion is high and margins remain protected.</p>
+                            </div>
+                            <div class="p-3 rounded mb-3" style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444;">
+                                <strong class="text-danger d-block mb-1">&ge; 30% Discount Range</strong>
+                                <p class="small text-secondary mb-0">Destroys <strong>-$135,376.07</strong> in cumulative profit. Tables, Machines, and Binders suffer catastrophic negative margins.</p>
+                            </div>
+                        </div>
+                        <a href="/recommendations" class="btn btn-outline-teal btn-sm text-center">
+                            <i class="bi bi-lightbulb me-1"></i> View AI Pricing Recommendations
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DISCOUNT RATES TABLE -->
+            <div class="dashboard-panel mb-4">
+                <div class="panel-header">
+                    <h5 class="panel-title"><i class="bi bi-percent text-teal-light"></i> Granular Discount Tier Performance</h5>
+                    <span class="badge bg-teal">All Tiers</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover align-middle small" id="discountDetailTable">
+                        <thead>
+                            <tr>
+                                <th>Discount Depth</th>
+                                <th>Gross Sales</th>
+                                <th>Net Profit / Loss</th>
+                                <th>Profit Margin (%)</th>
+                                <th>Units Dispatched</th>
+                                <th>Profitability Status</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td colspan="6" class="text-center text-secondary py-3">Loading discount breakdown...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: CUSTOMER & SEGMENT -->
+        <div class="tab-pane fade" id="tab-customer" role="tabpanel">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-6">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title"><i class="bi bi-pie-chart-fill text-teal-light"></i> Customer Segment Performance</h5>
+                            <span class="badge bg-teal">3 Segments</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped table-hover align-middle small" id="segmentTable">
+                                <thead>
+                                    <tr>
+                                        <th>Segment</th>
+                                        <th>Gross Sales</th>
+                                        <th>Net Profit</th>
+                                        <th>Margin</th>
+                                        <th>Units Sold</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="5" class="text-center text-secondary py-3">Loading segments...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="dashboard-panel h-100">
+                        <div class="panel-header">
+                            <h5 class="panel-title"><i class="bi bi-truck text-teal-light"></i> Logistics &amp; Shipping Mode Economics</h5>
+                            <span class="badge bg-teal">4 Fulfillment Classes</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped table-hover align-middle small" id="shipTable">
+                                <thead>
+                                    <tr>
+                                        <th>Shipping Mode</th>
+                                        <th>Gross Sales</th>
+                                        <th>Net Profit</th>
+                                        <th>Margin</th>
+                                        <th>Units</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="5" class="text-center text-secondary py-3">Loading shipping modes...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOP 10 CLIENT ACCOUNTS -->
+            <div class="dashboard-panel mb-4">
+                <div class="panel-header">
+                    <h5 class="panel-title"><i class="bi bi-person-badge text-teal-light"></i> Top 10 High-Value Enterprise &amp; Consumer Clients</h5>
+                    <span class="badge bg-teal">Top Revenue</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover align-middle small" id="topCustomersTable">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Customer Name</th>
+                                <th>Segment</th>
+                                <th>Orders Count</th>
+                                <th>Total Revenue</th>
+                                <th>Total Profit</th>
+                                <th>Profit Margin</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td colspan="7" class="text-center text-secondary py-3">Loading top clients...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formatCurrency = (val) => '$' + Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const formatPercent = (val) => Number(val || 0).toFixed(2) + '%';
+    const formatInteger = (val) => Number(val || 0).toLocaleString('en-US');
+
+    let analysisData = null;
+
+    fetch('/api/analysis')
+        .then(res => res.json())
+        .then(json => {
+            if (!json.success) throw new Error(json.error || 'Failed to fetch analysis');
+            analysisData = json.data;
+            populateAllDimensions(analysisData);
+        })
+        .catch(err => {
+            console.error('Analysis fetch error:', err);
+            if (window.showToast) window.showToast('Failed to load analysis: ' + err.message, 'error');
+        });
+
+    function populateAllDimensions(data) {
+        // 1. Year-wise Table
+        const yTbody = document.querySelector('#yearlyTable tbody');
+        yTbody.innerHTML = '';
+        data.year_wise.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${row.Year}</strong></td>
+                <td>${formatCurrency(row.Sales)}</td>
+                <td class="${row.Profit >= 0 ? 'text-success' : 'text-danger'} fw-semibold">${formatCurrency(row.Profit)}</td>
+                <td><span class="badge ${row.Margin >= 12 ? 'bg-success' : 'bg-warning text-dark'}">${formatPercent(row.Margin)}</span></td>
+                <td>${formatInteger(row.Quantity)}</td>
+                <td>${formatInteger(row['Order ID'])}</td>
+            `;
+            yTbody.appendChild(tr);
+        });
+
+        // 2. Monthly Seasonality Chart
+        const mLabels = data.monthly_seasonality.map(m => m['Month Name'].substring(0, 3));
+        const mSales = data.monthly_seasonality.map(m => m.Sales);
+        const mProfit = data.monthly_seasonality.map(m => m.Profit);
+        const mCtx = document.getElementById('monthlySeasonalityChart');
+        if (mCtx) {
+            new Chart(mCtx, {
+                type: 'bar',
+                data: {
+                    labels: mLabels,
+                    datasets: [
+                        { label: 'Sales ($)', data: mSales, backgroundColor: '#0d9488', borderRadius: 4 },
+                        { label: 'Profit ($)', data: mProfit, backgroundColor: '#38bdf8', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.06)' },
+                            ticks: { callback: v => '$' + (v >= 1000 ? (v/1000) + 'k' : v) }
+                        }
+                    },
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        }
+
+        // 3. Category Summary Cards
+        const catContainer = document.getElementById('categoryCardsContainer');
+        catContainer.innerHTML = '';
+        data.category_wise.forEach(c => {
+            const col = document.createElement('div');
+            col.className = 'col-lg-4 col-md-6';
+            col.innerHTML = `
+                <div class="dashboard-panel h-100 p-4 border-top border-4 ${c.Category === 'Technology' ? 'border-teal' : (c.Category === 'Office Supplies' ? 'border-primary' : 'border-warning')}">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="text-white fw-bold mb-0">${c.Category}</h5>
+                        <span class="badge ${c.Margin >= 15 ? 'bg-success' : 'bg-warning text-dark'}">${formatPercent(c.Margin)} Margin</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-secondary small mb-3">
+                        <span>Total Revenue:</span>
+                        <strong class="text-white">${formatCurrency(c.Sales)}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-secondary small mb-3">
+                        <span>Net Profit:</span>
+                        <strong class="text-success">${formatCurrency(c.Profit)}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-secondary small">
+                        <span>Units Dispatched:</span>
+                        <span class="text-slate">${formatInteger(c.Quantity)}</span>
+                    </div>
+                </div>
+            `;
+            catContainer.appendChild(col);
+        });
+
+        // 4. Sub-category Table
+        const subTbody = document.querySelector('#subcategoryTable tbody');
+        subTbody.innerHTML = '';
+        data.subcategory_wise.forEach(row => {
+            const tr = document.createElement('tr');
+            const isLoss = row.Profit < 0;
+            tr.innerHTML = `
+                <td><span class="badge bg-dark-subtle text-secondary border border-secondary">${row.Category}</span></td>
+                <td><strong>${row['Sub-Category']}</strong></td>
+                <td>${formatCurrency(row.Sales)}</td>
+                <td class="${isLoss ? 'text-danger fw-bold' : 'text-success'}">${formatCurrency(row.Profit)}</td>
+                <td><span class="badge ${isLoss ? 'bg-danger' : (row.Margin >= 15 ? 'bg-success' : 'bg-warning text-dark')}">${formatPercent(row.Margin)}</span></td>
+                <td>${formatInteger(row.Quantity)}</td>
+                <td>${(row.Discount * 100).toFixed(1)}%</td>
+                <td><span class="badge ${isLoss ? 'bg-danger' : 'bg-success'}">${isLoss ? 'Loss-Maker' : 'Profitable'}</span></td>
+            `;
+            subTbody.appendChild(tr);
+        });
+
+        // 5. Region Table & Chart
+        const regTbody = document.querySelector('#regionTable tbody');
+        regTbody.innerHTML = '';
+        data.region_wise.forEach(r => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${r.Region}</strong></td>
+                <td>${formatCurrency(r.Sales)}</td>
+                <td class="text-success">${formatCurrency(r.Profit)}</td>
+                <td>${formatPercent(r.Margin)}</td>
+                <td>${formatInteger(r.Quantity)}</td>
+            `;
+            regTbody.appendChild(tr);
+        });
+
+        const regCtx = document.getElementById('analysisRegionChart');
+        if (regCtx) {
+            new Chart(regCtx, {
+                type: 'bar',
+                data: {
+                    labels: data.region_wise.map(r => r.Region),
+                    datasets: [
+                        { label: 'Sales ($)', data: data.region_wise.map(r => r.Sales), backgroundColor: '#0d9488', borderRadius: 4 },
+                        { label: 'Profit ($)', data: data.region_wise.map(r => r.Profit), backgroundColor: '#10b981', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.06)' },
+                            ticks: { callback: v => '$' + (v >= 1000 ? (v/1000) + 'k' : v) }
+                        }
+                    },
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        }
+
+        // 6. Top States & Bottom States
+        const topStatesTbody = document.querySelector('#topStatesTable tbody');
+        topStatesTbody.innerHTML = '';
+        data.top_states.forEach((s, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><span class="badge bg-teal">${idx + 1}</span></td>
+                <td><strong>${s.State}</strong></td>
+                <td>${formatCurrency(s.Sales)}</td>
+                <td class="text-success fw-semibold">${formatCurrency(s.Profit)}</td>
+                <td>${formatPercent(s.Margin)}</td>
+            `;
+            topStatesTbody.appendChild(tr);
+        });
+
+        const bottomStatesTbody = document.querySelector('#bottomStatesTable tbody');
+        bottomStatesTbody.innerHTML = '';
+        data.bottom_states.forEach((s, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><span class="badge bg-danger">${idx + 1}</span></td>
+                <td><strong>${s.State}</strong></td>
+                <td>${formatCurrency(s.Sales)}</td>
+                <td class="text-danger fw-semibold">${formatCurrency(s.Profit)}</td>
+                <td><span class="badge bg-danger">${formatPercent(s.Margin)}</span></td>
+            `;
+            bottomStatesTbody.appendChild(tr);
+        });
+
+        // 7. Loss-making products
+        const lossTbody = document.querySelector('#bottomLossProductsTable tbody');
+        lossTbody.innerHTML = '';
+        data.bottom_loss_products.forEach(p => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><code>${p['Product ID']}</code></td>
+                <td><strong>${p['Product Name']}</strong></td>
+                <td><span class="badge bg-dark-subtle text-secondary border border-secondary">${p.Category}</span></td>
+                <td>${formatCurrency(p.Sales)}</td>
+                <td class="text-danger fw-bold">${formatCurrency(p.Profit)}</td>
+                <td><span class="badge bg-danger">${formatPercent(p.Margin)}</span></td>
+                <td><span class="badge bg-warning text-dark"><i class="bi bi-slash-circle me-1"></i>Cap Discount</span></td>
+            `;
+            lossTbody.appendChild(tr);
+        });
+
+        // Top 10 Sales products
+        const topSalesTbody = document.querySelector('#topProductsSalesTable tbody');
+        topSalesTbody.innerHTML = '';
+        data.top_products_sales.forEach(p => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${p['Product Name'].substring(0, 38)}...</strong></td>
+                <td><span class="badge bg-dark-subtle text-secondary border border-secondary">${p.Category}</span></td>
+                <td>${formatCurrency(p.Sales)}</td>
+                <td class="${p.Profit >= 0 ? 'text-success' : 'text-danger'}">${formatCurrency(p.Profit)}</td>
+            `;
+            topSalesTbody.appendChild(tr);
+        });
+
+        // Top 10 Profit products
+        const topProfitTbody = document.querySelector('#topProductsProfitTable tbody');
+        topProfitTbody.innerHTML = '';
+        data.top_products_profit.forEach(p => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${p['Product Name'].substring(0, 38)}...</strong></td>
+                <td><span class="badge bg-dark-subtle text-secondary border border-secondary">${p.Category}</span></td>
+                <td>${formatCurrency(p.Sales)}</td>
+                <td class="text-success fw-bold">${formatCurrency(p.Profit)}</td>
+            `;
+            topProfitTbody.appendChild(tr);
+        });
+
+        // 8. Discount Analysis Chart & Table
+        const discLabels = data.discount_wise.map(d => `${(d.Discount * 100).toFixed(0)}%`);
+        const discProfit = data.discount_wise.map(d => d.Profit);
+        const discCtx = document.getElementById('analysisDiscountChart');
+        if (discCtx) {
+            new Chart(discCtx, {
+                type: 'line',
+                data: {
+                    labels: discLabels,
+                    datasets: [{
+                        label: 'Net Profit ($)',
+                        data: discProfit,
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239,68,68,0.1)',
+                        fill: { target: 'origin', above: 'rgba(16,185,129,0.15)', below: 'rgba(239,68,68,0.25)' },
+                        tension: 0.3,
+                        pointRadius: 4,
+                        borderWidth: 2.5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Discount Depth', color: '#94a3b8' } },
+                        y: {
+                            ticks: { callback: v => '$' + v.toLocaleString() }
+                        }
+                    }
+                }
+            });
+        }
+
+        const discTbody = document.querySelector('#discountDetailTable tbody');
+        discTbody.innerHTML = '';
+        data.discount_wise.forEach(d => {
+            const tr = document.createElement('tr');
+            const isLoss = d.Profit < 0;
+            tr.innerHTML = `
+                <td><strong>${(d.Discount * 100).toFixed(0)}%</strong></td>
+                <td>${formatCurrency(d.Sales)}</td>
+                <td class="${isLoss ? 'text-danger fw-bold' : 'text-success'}">${formatCurrency(d.Profit)}</td>
+                <td><span class="badge ${isLoss ? 'bg-danger' : 'bg-success'}">${formatPercent(d.Margin)}</span></td>
+                <td>${formatInteger(d.Quantity)}</td>
+                <td><span class="badge ${isLoss ? 'bg-danger' : 'bg-success'}">${d.Status}</span></td>
+            `;
+            discTbody.appendChild(tr);
+        });
+
+        // 9. Customer Segments & Shipping
+        const segTbody = document.querySelector('#segmentTable tbody');
+        segTbody.innerHTML = '';
+        data.segment_wise.forEach(s => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${s.Segment}</strong></td>
+                <td>${formatCurrency(s.Sales)}</td>
+                <td class="text-success">${formatCurrency(s.Profit)}</td>
+                <td>${formatPercent(s.Margin)}</td>
+                <td>${formatInteger(s.Quantity)}</td>
+            `;
+            segTbody.appendChild(tr);
+        });
+
+        const shipTbody = document.querySelector('#shipTable tbody');
+        shipTbody.innerHTML = '';
+        data.ship_wise.forEach(s => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${s['Ship Mode']}</strong></td>
+                <td>${formatCurrency(s.Sales)}</td>
+                <td class="text-success">${formatCurrency(s.Profit)}</td>
+                <td>${formatPercent(s.Margin)}</td>
+                <td>${formatInteger(s.Quantity)}</td>
+            `;
+            shipTbody.appendChild(tr);
+        });
+
+        // 10. Top Customers
+        const custTbody = document.querySelector('#topCustomersTable tbody');
+        custTbody.innerHTML = '';
+        data.top_customers_sales.forEach(c => {
+            const margin = (c.Profit / c.Sales) * 100;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><code>${c['Customer ID']}</code></td>
+                <td><strong>${c['Customer Name']}</strong></td>
+                <td><span class="badge bg-dark-subtle text-secondary border border-secondary">${c.Segment}</span></td>
+                <td>${formatInteger(c['Order ID'])}</td>
+                <td>${formatCurrency(c.Sales)}</td>
+                <td class="text-success fw-bold">${formatCurrency(c.Profit)}</td>
+                <td><span class="badge bg-success">${formatPercent(margin)}</span></td>
+            `;
+            custTbody.appendChild(tr);
+        });
+    }
+});
+</script>
+{% endblock %}
+

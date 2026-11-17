@@ -1,0 +1,32 @@
+{
+    "models": {
+        "linear_regression": {
+            "name": "Linear Regression",
+            "mae": 12180.97,
+            "rmse": 16833.86,
+            "r2_score": 0.5734,
+            "is_best": true,
+            "description": "Ordinary Least Squares regression capturing linear trend and calendar month seasonality."
+        },
+        "random_forest": {
+            "name": "Random Forest Regression",
+            "mae": 14510.56,
+            "rmse": 18168.49,
+            "r2_score": 0.5031,
+            "is_best": false,
+            "description": "Ensemble of 100 decision trees. Bounded by training extremes."
+        },
+        "improved_linear_regression": {
+            "name": "Improved Linear Regression (Lags)",
+            "mae": 14373.8,
+            "rmse": 17671.21,
+            "r2_score": 0.5299,
+            "is_best": false,
+            "description": "Autoregressive model utilizing Lag_1, Lag_2, Lag_12 and Rolling_3 features."
+        }
+    },
+    "best_model": "linear_regression",
+    "training_months": 36,
+    "test_months": 12,
+    "test_year": 2017
+}

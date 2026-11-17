@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}SmartRetail AI - Executive Dashboard Overview{% endblock %}
+{% block page_title %}Executive Analytics Dashboard{% endblock %}
+{% block breadcrumb %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- FILTER TOOLBAR -->
+    <div class="dashboard-panel mb-4 p-3">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-3 col-sm-6">
+                <label for="filterYear" class="form-label text-secondary small mb-1 fw-semibold">
+                    <i class="bi bi-calendar3 me-1 text-teal-light"></i> Fiscal Operating Year
+                </label>
+                <select class="form-select form-select-sm bg-dark text-white border-secondary" id="filterYear">
+                    <option value="all">All Operating Years (2014 - 2017)</option>
+                    {% for y in years %}
+                    <option value="{{ y }}">{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <label for="filterCategory" class="form-label text-secondary small mb-1 fw-semibold">
+                    <i class="bi bi-tag-fill me-1 text-teal-light"></i> Merchandise Category
+                </label>
+                <select class="form-select form-select-sm bg-dark text-white border-secondary" id="filterCategory">
+                    <option value="all">All Categories (3)</option>
+                    {% for c in categories %}
+                    <option value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex align-items-end gap-2">
+                <button class="btn btn-sm btn-teal d-inline-flex align-items-center gap-2" id="applyFilterBtn">
+                    <i class="bi bi-funnel-fill"></i> Apply Dynamic Filters
+                </button>
+                <button class="btn btn-sm btn-outline-secondary text-white" id="resetFilterBtn">
+                    <i class="bi bi-arrow-counterclockwise"></i> Reset
+                </button>
+            </div>
+            <div class="col-md-2 text-md-end d-none d-md-block">
+                <span class="badge bg-dark-subtle text-teal-light border border-teal p-2">
+                    <i class="bi bi-broadcast"></i> Live Dataset Linked
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI CARDS (6 CARDS) -->
+    <div class="row g-3 mb-4">
+        <!-- 1. Total Sales -->
+        <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-teal">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <div class="kpi-title">TOTAL SALES</div>
+                <div class="kpi-value" id="kpiSales">$0.00</div>
+                <div class="kpi-subtext text-secondary">Cumulative Gross Revenue</div>
+            </div>
+        </div>
+
+        <!-- 2. Total Profit -->
+        <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-green">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <div class="kpi-title">TOTAL PROFIT</div>
+                <div class="kpi-value text-success" id="kpiProfit">$0.00</div>
+                <div class="kpi-subtext text-secondary">Operating Net Earnings</div>
+            </div>
+        </div>
+
+        <!-- 3. Profit Margin -->
+        <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-blue">
+                    <i class="bi bi-pie-chart-fill"></i>
+                </div>
+                <div class="kpi-title">PROFIT MARGIN</div>
+                <div class="kpi-value" id="kpiMargin">0.0%</div>
+                <div class="kpi-subtext text-secondary">Overall Health Metric</div>
+            </div>
+        </div>
+
+        <!-- 4. Total Orders -->
+        <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-amber">
+                    <i class="bi bi-bag-check-fill"></i>
+                </div>
+                <div class="kpi-title">TOTAL ORDERS</div>
+                <div class="kpi-value" id="kpiOrders">0</div>
+                <div class="kpi-subtext text-secondary">Fulfilled Shipments</div>
+            </div>
+        </div>
+
+        <!-- 5. Customers -->
+        <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-teal">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <div class="kpi-title">CUSTOMERS</div>
+                <div class="kpi-value" id="kpiCustomers">0</div>
+                <div class="kpi-subtext text-secondary">Unique Purchasing Accounts</div>
+            </div>
+        </div>
+
+        <!-- 6. Total Quantity Sold -->
+        <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrap kpi-icon-blue">
+                    <i class="bi bi-box-seam-fill"></i>
+                </div>
+                <div class="kpi-title">UNITS SOLD</div>
+                <div class="kpi-value" id="kpiQuantity">0</div>
+                <div class="kpi-subtext text-secondary">Physical Items Dispatched</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS ROW 1: Monthly Trends (Full Width) -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="dashboard-panel">
+                <div class="panel-header">
+                    <h5 class="panel-title">
+                        <i class="bi bi-graph-up text-teal-light"></i> Monthly Sales &amp; Profit Growth Trajectory
+                    </h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-teal">Time Series</span>
+                        <span class="text-secondary small">48 Historical Periods</span>
+                    </div>
+                </div>
+                <div class="chart-container" style="height: 320px;">
+                    <canvas id="monthlyTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS ROW 2: YoY Comparison & Category Donut -->
+    <div class="row g-4 mb-4">
+        <!-- Year-over-Year Sales & Profit -->
+        <div class="col-lg-7">
+            <div class="dashboard-panel h-100">
+                <div class="panel-header">
+                    <h5 class="panel-title">
+                        <i class="bi bi-bar-chart-steps text-teal-light"></i> Annual Revenue &amp; Profit Comparison
+                    </h5>
+                    <span class="badge bg-dark-subtle text-secondary border border-secondary">YoY Analysis</span>
+                </div>
+                <div class="chart-container" style="height: 290px;">
+                    <canvas id="yearlyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Breakdown -->
+        <div class="col-lg-5">
+            <div class="dashboard-panel h-100">
+                <div class="panel-header">
+                    <h5 class="panel-title">
+                        <i class="bi bi-pie-chart text-teal-light"></i> Category Sales Contribution
+                    </h5>
+                    <span class="badge bg-dark-subtle text-secondary border border-secondary">3 Core Catalogues</span>
+                </div>
+                <div class="chart-container" style="height: 290px;">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS ROW 3: Regional Performance & Discount Sensitivity -->
+    <div class="row g-4 mb-4">
+        <!-- Regional Breakdown -->
+        <div class="col-lg-6">
+            <div class="dashboard-panel h-100">
+                <div class="panel-header">
+                    <h5 class="panel-title">
+                        <i class="bi bi-geo-alt-fill text-teal-light"></i> Regional Territory Sales &amp; Margins
+                    </h5>
+                    <span class="badge bg-dark-subtle text-secondary border border-secondary">West, East, Central, South</span>
+                </div>
+                <div class="chart-container" style="height: 280px;">
+                    <canvas id="regionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discount Sensitivity Curve -->
+        <div class="col-lg-6">
+            <div class="dashboard-panel h-100">
+                <div class="panel-header">
+                    <h5 class="panel-title">
+                        <i class="bi bi-exclamation-triangle-fill text-danger"></i> Discount vs. Profit Margin Impact
+                    </h5>
+                    <span class="badge bg-danger">Critical Sensitivity</span>
+                </div>
+                <div class="chart-container" style="height: 280px;">
+                    <canvas id="discountImpactChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
+

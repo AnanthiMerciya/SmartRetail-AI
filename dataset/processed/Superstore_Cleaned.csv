@@ -1,0 +1,4 @@
+Order Date,Sales,Profit,Quantity,Discount,Category,Sub-Category,Region,Year,Month,Month Name,Quarter,Day,Day Name
+2016-01-15,250.0,45.0,2,0.1,Technology,Phones,West,2016,1,January,1,15,Friday
+2016-02-20,120.0,-15.0,1,0.4,Furniture,Chairs,East,2016,2,February,1,20,Saturday
+2016-03-10,50.0,12.5,5,0.0,Office Supplies,Paper,Central,2016,3,March,1,10,Thursday

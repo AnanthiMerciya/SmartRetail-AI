@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block title %}SmartRetail AI - About Project &amp; Technical Specifications{% endblock %}
+{% block page_title %}About SmartRetail AI{% endblock %}
+{% block breadcrumb %}About{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- STUDENT & PROJECT PROFILE BANNER -->
+    <div class="dashboard-panel mb-4 p-4 border-start border-4 border-teal">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span class="badge bg-teal mb-2"><i class="bi bi-mortarboard-fill me-1"></i> Final Year Capstone Project</span>
+                <h3 class="text-white fw-bold mb-2">SmartRetail AI</h3>
+                <h5 class="text-teal-light mb-3">Intelligent Business Analytics Dashboard with Sales Forecasting and Decision Support Using Machine Learning</h5>
+                <p class="text-secondary small mb-0">
+                    A comprehensive, commercial-grade decision support platform engineered for retail enterprises. The application unites exploratory data analysis, interactive multi-dimensional business intelligence, time-series machine learning forecasting, and automated prescriptive strategy recommendations.
+                </p>
+            </div>
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="p-3 rounded" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3);">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="avatar-circle" style="width: 48px; height: 48px; font-size: 1.1rem;">
+                            <span>AM</span>
+                        </div>
+                        <div>
+                            <h6 class="text-white fw-bold mb-0">Ananthi Merciya M</h6>
+                            <span class="text-teal-light small">Register No: <strong>ASML24005</strong></span>
+                        </div>
+                    </div>
+                    <div class="small text-secondary mb-1">
+                        <strong>Degree:</strong> B.Sc. Artificial Intelligence &amp; Machine Learning
+                    </div>
+                    <div class="small text-secondary mb-2">
+                        <strong>Submission Date:</strong> November 2026
+                    </div>
+                    <div class="d-grid mt-3">
+                        <a href="/download/project-doc" class="btn btn-teal btn-sm">
+                            <i class="bi bi-file-earmark-word me-1"></i> Download Project Documentation (.docx)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3 KEY PILLARS -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+            <div class="dashboard-panel h-100 p-4">
+                <div class="kpi-icon-wrap kpi-icon-teal mb-3">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <h5 class="text-white fw-bold mb-2">1. Descriptive &amp; Diagnostic BI</h5>
+                <p class="text-secondary small mb-0">
+                    Calculates dynamic KPIs across 9,994 transactional records. Evaluates 10 analytical dimensions covering seasonal trends, category margin variations, regional performance disparities, and discount profit cannibalization.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="dashboard-panel h-100 p-4">
+                <div class="kpi-icon-wrap kpi-icon-blue mb-3">
+                    <i class="bi bi-cpu-fill"></i>
+                </div>
+                <h5 class="text-white fw-bold mb-2">2. Predictive Sales Forecasting</h5>
+                <p class="text-secondary small mb-0">
+                    Employs time-series regression algorithms (Linear Regression &amp; Random Forest) trained on 2014&ndash;2016 monthly aggregates. Projects up to 12 months ahead (2018) while preventing data leakage through strict chronological evaluation.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="dashboard-panel h-100 p-4">
+                <div class="kpi-icon-wrap kpi-icon-amber mb-3">
+                    <i class="bi bi-lightbulb-fill"></i>
+                </div>
+                <h5 class="text-white fw-bold mb-2">3. Prescriptive Decision Support</h5>
+                <p class="text-secondary small mb-0">
+                    Transforms raw data patterns into actionable executive directives: enforces the 20% discount ceiling, identifies persistent hardware loss leaders, capitalizes on Technology category strengths, and plans Q4 seasonal inventory.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TECHNICAL ARCHITECTURE & STACK -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="dashboard-panel h-100">
+                <div class="panel-header">
+                    <h5 class="panel-title"><i class="bi bi-layers-fill text-teal-light"></i> Technology Stack</h5>
+                    <span class="badge bg-teal">Production Architecture</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped align-middle small mb-0">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Technology / Library</th>
+                                <th>Functional Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Frontend</strong></td>
+                                <td>HTML5, CSS3, Bootstrap 5.3, Chart.js 4.4</td>
+                                <td>Responsive UI, Dark Navy theme, interactive charts</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Backend</strong></td>
+                                <td>Python 3.11, Flask 3.1</td>
+                                <td>REST API, routing, template rendering</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Processing</strong></td>
+                                <td>Pandas 3.1, NumPy 2.4</td>
+                                <td>ETL pipeline, aggregation, date feature engineering</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Machine Learning</strong></td>
+                                <td>Scikit-learn 1.9, Joblib 1.6</td>
+                                <td>Time-series regression, model serialization</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Database</strong></td>
+                                <td>SQLite 3</td>
+                                <td>Upload records, forecast history, audit logs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Reporting</strong></td>
+                                <td>ReportLab 5.1 &amp; OpenXML</td>
+                                <td>Executive PDF &amp; Word documentation compilation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="dashboard-panel h-100">
+                <div class="panel-header">
+                    <h5 class="panel-title"><i class="bi bi-bar-chart-steps text-teal-light"></i> Model Evaluation Benchmarks</h5>
+                    <span class="badge bg-teal">2017 Test Set</span>
+                </div>
+                <div class="table-responsive mb-3">
+                    <table class="table table-dark table-striped align-middle small mb-0">
+                        <thead>
+                            <tr>
+                                <th>Model Algorithm</th>
+                                <th>MAE ($)</th>
+                                <th>RMSE ($)</th>
+                                <th>R² Score</th>
+                                <th>Rank</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-active">
+                                <td><strong>Linear Regression</strong></td>
+                                <td>$12,180.97</td>
+                                <td>$16,833.86</td>
+                                <td><strong class="text-success">0.5734</strong></td>
+                                <td><span class="badge bg-success">Best Performer</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Random Forest Regression</strong></td>
+                                <td>$14,174.73</td>
+                                <td>$17,723.94</td>
+                                <td><span class="text-warning">0.5271</span></td>
+                                <td><span class="badge bg-secondary">Baseline</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Improved LR (Lags + Rolling)</strong></td>
+                                <td>$14,373.80</td>
+                                <td>$17,671.21</td>
+                                <td>0.5299</td>
+                                <td><span class="badge bg-secondary">Experimental</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-3 rounded" style="background: rgba(30, 41, 59, 0.4);">
+                    <small class="text-secondary d-block">
+                        <strong>Why Linear Regression out-performed Random Forest:</strong> Tree ensembles cannot extrapolate outside the range of their training targets (Dec 2016 max of $96,999), causing severe under-forecasting during the November 2017 peak ($118,447). Linear Regression accurately projected secular growth plus month seasonality.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATASET SPECIFICATIONS -->
+    <div class="dashboard-panel mb-4">
+        <div class="panel-header">
+            <h5 class="panel-title"><i class="bi bi-database text-teal-light"></i> Reference Dataset Benchmark Statistics</h5>
+            <span class="badge bg-teal">Superstore.csv</span>
+        </div>
+        <div class="row g-3 text-center">
+            <div class="col-md-2 col-4">
+                <div class="p-3 rounded" style="background: rgba(30, 41, 59, 0.5);">
+                    <span class="text-secondary small">RECORDS</span>
+                    <h5 class="text-white fw-bold mb-0 mt-1">9,994</h5>
+                </div>
+            </div>
+            <div class="col-md-2 col-4">
+                <div class="p-3 rounded" style="background: rgba(30, 41, 59, 0.5);">
+                    <span class="text-secondary small">COLUMNS</span>
+                    <h5 class="text-white fw-bold mb-0 mt-1">21</h5>
+                </div>
+            </div>
+            <div class="col-md-2 col-4">
+                <div class="p-3 rounded" style="background: rgba(30, 41, 59, 0.5);">
+                    <span class="text-secondary small">TOTAL SALES</span>
+                    <h5 class="text-teal-light fw-bold mb-0 mt-1">$2,297,200.86</h5>
+                </div>
+            </div>
+            <div class="col-md-2 col-4">
+                <div class="p-3 rounded" style="background: rgba(30, 41, 59, 0.5);">
+                    <span class="text-secondary small">TOTAL PROFIT</span>
+                    <h5 class="text-success fw-bold mb-0 mt-1">$286,397.02</h5>
+                </div>
+            </div>
+            <div class="col-md-2 col-4">
+                <div class="p-3 rounded" style="background: rgba(30, 41, 59, 0.5);">
+                    <span class="text-secondary small">PROFIT MARGIN</span>
+                    <h5 class="text-white fw-bold mb-0 mt-1">12.47%</h5>
+                </div>
+            </div>
+            <div class="col-md-2 col-4">
+                <div class="p-3 rounded" style="background: rgba(30, 41, 59, 0.5);">
+                    <span class="text-secondary small">TOTAL ORDERS</span>
+                    <h5 class="text-white fw-bold mb-0 mt-1">5,009</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block title %}SmartRetail AI - Intelligent Business Analytics &amp; Forecasting{% endblock %}
+{% block page_title %}Enterprise Home{% endblock %}
+{% block breadcrumb %}Home{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+    <!-- HERO SECTION -->
+    <div class="hero-wrapper">
+        <div class="hero-tag">
+            <i class="bi bi-patch-check-fill"></i>
+            <span>B.Sc. Artificial Intelligence &amp; Machine Learning Capstone</span>
+        </div>
+        <h1 class="hero-heading">
+            Next-Generation <span class="hero-gradient-text">Retail Intelligence</span> &amp; Sales Forecasting
+        </h1>
+        <p class="hero-subheading">
+            SmartRetail AI unifies diagnostic retail analytics, empirical discount elasticity modeling, and Scikit-learn predictive forecasting to drive enterprise profitability and automated decision support.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="/dashboard" class="btn btn-lg btn-teal d-inline-flex align-items-center gap-2 px-4 py-3">
+                <i class="bi bi-speedometer2"></i>
+                <span>Open Analytics Dashboard</span>
+            </a>
+            <a href="/forecast" class="btn btn-lg btn-outline-light d-inline-flex align-items-center gap-2 px-4 py-3">
+                <i class="bi bi-stars text-teal-light"></i>
+                <span>Explore ML Forecasting</span>
+            </a>
+            <a href="/upload" class="btn btn-lg btn-outline-teal d-inline-flex align-items-center gap-2 px-4 py-3">
+                <i class="bi bi-cloud-arrow-up"></i>
+                <span>Upload Custom Dataset</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- METRICS TICKER -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-2 col-md-4">
+            <div class="kpi-card text-center p-3">
+                <div class="kpi-title mb-1">TOTAL SALES</div>
+                <div class="kpi-value text-teal-light fs-4">$2,297,200</div>
+                <div class="kpi-subtext">Gross Revenue</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-2 col-md-4">
+            <div class="kpi-card text-center p-3">
+                <div class="kpi-title mb-1">NET PROFIT</div>
+                <div class="kpi-value text-success fs-4">$286,397</div>
+                <div class="kpi-subtext">12.47% Margin</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-2 col-md-4">
+            <div class="kpi-card text-center p-3">
+                <div class="kpi-title mb-1">ORDERS</div>
+                <div class="kpi-value fs-4">5,009</div>
+                <div class="kpi-subtext">Transactions</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-2 col-md-4">
+            <div class="kpi-card text-center p-3">
+                <div class="kpi-title mb-1">CUSTOMERS</div>
+                <div class="kpi-value fs-4">793</div>
+                <div class="kpi-subtext">Unique Entities</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-2 col-md-4">
+            <div class="kpi-card text-center p-3">
+                <div class="kpi-title mb-1">BEST MODEL</div>
+                <div class="kpi-value text-primary fs-4">Linear Reg</div>
+                <div class="kpi-subtext">R²: 0.5734</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-2 col-md-4">
+            <div class="kpi-card text-center p-3">
+                <div class="kpi-title mb-1">RECORDS</div>
+                <div class="kpi-value fs-4">9,994</div>
+                <div class="kpi-subtext">21 Columns</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CORE FEATURES GRID -->
+    <div class="mb-5">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <h3 class="fw-bold text-white mb-1">Engineered Modules &amp; Capabilities</h3>
+                <p class="text-secondary small mb-0">End-to-end data processing, statistical modeling, and prescriptive decision heuristics.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-bar-chart-line-fill"></i>
+                    </div>
+                    <h4 class="feature-title">Diagnostic Business Intelligence</h4>
+                    <p class="feature-desc">
+                        Deep multi-dimensional analysis evaluating sales, margins, order volume, and customer behavior across categories, territories, and shipping tiers.
+                    </p>
+                    <a href="/dashboard" class="btn btn-sm btn-link text-teal-light text-decoration-none px-0 mt-2">
+                        View Dashboard <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-cpu-fill"></i>
+                    </div>
+                    <h4 class="feature-title">Machine Learning Forecasting</h4>
+                    <p class="feature-desc">
+                        Trained Linear Regression and Random Forest Regression algorithms evaluating secular trends, seasonality, and autoregressive lag indicators to predict 3, 6, and 12-month demand horizons.
+                    </p>
+                    <a href="/forecast" class="btn btn-sm btn-link text-teal-light text-decoration-none px-0 mt-2">
+                        Test Forecast Models <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-shield-slash-fill"></i>
+                    </div>
+                    <h4 class="feature-title">Discount Cannibalization Audit</h4>
+                    <p class="feature-desc">
+                        Empirically demonstrates that discounts >= 30% erode over -$135,000 in net profit. Provides empirical guidelines to cap standard promotional rates at 20%.
+                    </p>
+                    <a href="/analysis" class="btn btn-sm btn-link text-teal-light text-decoration-none px-0 mt-2">
+                        Analyze Discounts <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-lightbulb-fill"></i>
+                    </div>
+                    <h4 class="feature-title">Automated Decision Support</h4>
+                    <p class="feature-desc">
+                        Rule-based AI engine generating prioritized strategic recommendations for inventory restocking, vendor renegotiation, regional price alignment, and catalog pruning.
+                    </p>
+                    <a href="/recommendations" class="btn btn-sm btn-link text-teal-light text-decoration-none px-0 mt-2">
+                        Read Recommendations <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+                    </div>
+                    <h4 class="feature-title">Flexible Dataset Upload &amp; Clean</h4>
+                    <p class="feature-desc">
+                        Drag-and-drop CSV and Excel file ingestion with schema validation, missing value detection, duplicate scrubbing, and temporal feature extraction.
+                    </p>
+                    <a href="/upload" class="btn btn-sm btn-link text-teal-light text-decoration-none px-0 mt-2">
+                        Upload Files <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                    </div>
+                    <h4 class="feature-title">Executive PDF &amp; CSV Reporting</h4>
+                    <p class="feature-desc">
+                        Generate and download presentation-ready PDF analytical reports built with ReportLab, alongside tabular CSV forecasts and clean datasets.
+                    </p>
+                    <a href="/reports" class="btn btn-sm btn-link text-teal-light text-decoration-none px-0 mt-2">
+                        Export Documents <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARCHITECTURE SUMMARY -->
+    <div class="dashboard-panel mb-4">
+        <div class="panel-header">
+            <h4 class="panel-title"><i class="bi bi-diagram-3-fill"></i> System Architecture &amp; Pipeline</h4>
+            <a href="/about" class="btn btn-sm btn-outline-light">Full Academic Specs</a>
+        </div>
+        <div class="row text-center g-3 pt-2">
+            <div class="col-md-2 col-6">
+                <div class="p-3 bg-dark-subtle rounded border border-secondary border-opacity-25 h-100">
+                    <i class="bi bi-database-fill text-teal-light fs-3 mb-2 d-block"></i>
+                    <h6 class="fw-bold text-white mb-1">1. Ingestion</h6>
+                    <span class="text-secondary small">Superstore.csv &amp; SQLite relational DB</span>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="p-3 bg-dark-subtle rounded border border-secondary border-opacity-25 h-100">
+                    <i class="bi bi-funnel-fill text-info fs-3 mb-2 d-block"></i>
+                    <h6 class="fw-bold text-white mb-1">2. Cleaning</h6>
+                    <span class="text-secondary small">Pandas ETL &amp; Datetime derivation</span>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="p-3 bg-dark-subtle rounded border border-secondary border-opacity-25 h-100">
+                    <i class="bi bi-graph-up text-primary fs-3 mb-2 d-block"></i>
+                    <h6 class="fw-bold text-white mb-1">3. Analytics</h6>
+                    <span class="text-secondary small">Dynamic KPIs &amp; Discount matrices</span>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="p-3 bg-dark-subtle rounded border border-secondary border-opacity-25 h-100">
+                    <i class="bi bi-cpu text-warning fs-3 mb-2 d-block"></i>
+                    <h6 class="fw-bold text-white mb-1">4. ML Models</h6>
+                    <span class="text-secondary small">Linear Reg &amp; Random Forest in Scikit-learn</span>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="p-3 bg-dark-subtle rounded border border-secondary border-opacity-25 h-100">
+                    <i class="bi bi-lightbulb-fill text-success fs-3 mb-2 d-block"></i>
+                    <h6 class="fw-bold text-white mb-1">5. Decision Engine</h6>
+                    <span class="text-secondary small">Prescriptive heuristics &amp; warnings</span>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="p-3 bg-dark-subtle rounded border border-secondary border-opacity-25 h-100">
+                    <i class="bi bi-display text-danger fs-3 mb-2 d-block"></i>
+                    <h6 class="fw-bold text-white mb-1">6. Dashboard</h6>
+                    <span class="text-secondary small">Chart.js, Bootstrap &amp; ReportLab PDF</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
